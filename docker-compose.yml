@@ -1,0 +1,47 @@
+version: '1'
+
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./deployment/nginx-conf/vhost.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - microservice-1
+      - microservice-2
+
+  microservice-1:
+    container_name: book-service
+    build: ./service-1/
+    image: golang-grpc
+    depends_on:
+      - postgres
+    ports:
+      - 3000:3000
+
+  microservice-2:
+    container_name: auth
+    build: ./service-2/
+    image: python-grpc
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+        POSTGRES_PASSWORD: admin
+    ports:
+      - 5435:5432
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin

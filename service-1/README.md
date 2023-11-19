@@ -1,0 +1,1 @@
+protoc --go_out=./gen/go --go-grpc_out=./gen/go --grpc-gateway_out=./gen/go --grpc-gateway_opt=generate_unbound_methods=true --openapiv2_out . api.proto

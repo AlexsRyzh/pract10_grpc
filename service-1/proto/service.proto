@@ -12,8 +12,8 @@ service BookMicroservice{
   }
   rpc UpdateBook(BookInDb) returns (Response) {
     option (google.api.http) = {
-      put: "/books/{book.id}",
-      body: "book"
+      put: "/books/{id}",
+      body: "*"
     };
   }
   rpc DeleteBook(BookID) returns (Response) {

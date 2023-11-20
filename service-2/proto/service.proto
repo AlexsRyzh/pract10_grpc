@@ -1,6 +1,7 @@
 syntax = "proto3";
 package service1;
 import "google/api/annotations.proto";
+option go_package = "protobuf/grpc;auth";
 
 service AuthService{
   rpc Login(LoginForm) returns (Response){
